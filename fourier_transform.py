@@ -4,17 +4,14 @@
 #   - Aperiodic-Discrete    >> Discrete Time Fourier Transform (DTFT)
 #   - Periodic-Discrete     >> Discrete Fourier Transform (DFT)
 
-import numpy as np
-from matplotlib import pyplot as plt
 import mysignals as sigs
-from scipy import signal
-from signal_processing import Fourier_Transform
-
+import signal_processing as sp
 
 if __name__ == '__main__':
 
     my_signal = sigs.InputSignal_1kHz_15kHz
-    fourier = Fourier_Transform()
-    fourier.set_input_signal(my_signal)
-    fourier.calc_dft()
-    fourier.plot_dft()
+    dft_rex, dft_imx = sp.calc_dft(my_signal)
+    sp.plot_dft(my_signal, dft_rex, dft_imx)
+
+    inverse_dft = sp.calc_inverse_dft(dft_rex, dft_imx)
+    sp.plot_dft(inverse_dft, dft_rex, dft_imx)
