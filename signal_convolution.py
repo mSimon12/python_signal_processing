@@ -2,44 +2,9 @@ import numpy as np
 from matplotlib import pyplot as plt
 import mysignals as sigs
 from scipy import signal
+import signal_processing as sp
 
-
-class Convolution(object):
-
-    def __init__(self) -> None:
-        self.signals = {}
-
-    def add_input_signal(self, key, signal):
-        if key not in self.signals.keys:
-            self[key] = signal
-        else:
-            print(f"Key '{key}' already used.")
-    
-    def del_input_signal(self, key):
-        if key in self.signals.keys:
-            self.signals.pop(key)
-        else:
-            print(f"Key '{key}' undefined.")
-    
-    def convolve_all(self):
-        pass
-
-    def convolve(self, signal1, signal2):
-        output = np.zeros(len(signal1) + len(signal2))
-        for n in range(0,len(signal1)):
-            for m in range(0,len(signal2)):
-                output[n+m] += signal1[n] * signal2[m]
-        
-        return output
-    
-    def deconvolve(self, signal, divisor):
-        pass
-
-
-
-if __name__ == '__main__':
-
-    conv = Convolution()
+def main():
 
     #### CONVOLUTION
     output_signal1 = signal.convolve(sigs.InputSignal_1kHz_15kHz, sigs.Impulse_response)
@@ -66,7 +31,7 @@ if __name__ == '__main__':
     sig_15khz = np.sin(2*np.pi*15000*t)
     input_signal = sig_1khz + sig_15khz
     
-    output_signal2 = conv.convolve(input_signal, sigs.Impulse_response)
+    output_signal2 = sp.convolve(input_signal, sigs.Impulse_response)
 
     fig2, ax2 = plt.subplots(5, sharex=True)
 
@@ -109,3 +74,6 @@ if __name__ == '__main__':
     ax3[2].legend()
 
     plt.show()
+
+if __name__ == '__main__':
+    main()
