@@ -18,7 +18,7 @@ def deconvolve(signal, divisor):
 
 
 def calc_dft(input_signal):
-    print("Calculating Discrete Fourier Transform ...")
+    # print("Calculating Discrete Fourier Transform ...")
     rex_signal = []
     imx_signal = []
 
@@ -34,7 +34,7 @@ def calc_dft(input_signal):
     return (rex_signal, imx_signal)
 
 def calc_inverse_dft(rex_source, imx_source):
-    print("Calculating Inverse Discrete Fourier Transform ...")
+    # print("Calculating Inverse Discrete Fourier Transform ...")
     idft_signal = []
     for i in range(len(rex_source)*2):
         idft_signal.append(0)
