@@ -175,26 +175,78 @@ def iir_filter_example():
     plt.plot(w, 20*np.log10(abs(h)))
     plt.xscale('log')
     
-    plt.title('Butterworth filter frequency response')
+    plt.title('Butterworth filter (Lowpass)  frequency response')
     plt.ylabel('Amplitude (dB)')
     plt.xlabel('Frequency (rad/seconds)')
     plt.grid()
     
     ###################################################
+    fig, ax = plt.subplots(2,1, sharex=True)
+
     #Creating a type 1 Chebyshev Lowpass Filter
-    plt.figure()
     b,a = signal.cheby1(4, 5, 100, 'low', analog=True)
+    w,h = freqs(b,a)    
+    
+    ax[0].plot(w, 20*np.log10(abs(h)))
+    ax[0].set_xscale('log')
+    
+    ax[0].set_title('Chebyshev type 1 filter (Lowpass) frequency response')
+    ax[0].set_ylabel('Amplitude (dB)')
+    ax[0].grid()
+    ax[0].axhline(-5, color='green') # rs
+    ax[0].axvline(100, color='green') # rp
+
+    #Creating a type 2 Chebyshev Lowpass Filter
+    b,a = signal.cheby2(4, 40, 100, 'low', analog=True)
+    w,h = freqs(b,a)    
+    
+    ax[1].plot(w, 20*np.log10(abs(h)))
+    ax[1].set_xscale('log')
+    
+    ax[1].set_title('Chebyshev type 2 filter (Lowpass) frequency response')
+    ax[1].set_ylabel('Amplitude (dB)')
+    ax[1].set_xlabel('Frequency (rad/seconds)')
+    ax[1].grid()
+    ax[1].axhline(-40, color='green') # rs
+    ax[1].axvline(100, color='green') # rp
+
+
+    ###################################################
+    #Creating a Elliptic lowpass filter
+    plt.figure()
+    b,a = signal.ellip(4, 5, 40, 100, 'low', analog=True)
     w,h = freqs(b,a)    
     
     plt.plot(w, 20*np.log10(abs(h)))
     plt.xscale('log')
     
-    plt.title('Chebyshev type 1 filter frequency response')
+    plt.title('Elliptic filter (Lowpass) frequency response')
     plt.ylabel('Amplitude (dB)')
     plt.xlabel('Frequency (rad/seconds)')
     plt.grid()
+    plt.axhline(-40, color='g') # rs
+    plt.axhline(-5, color='m') # rp
+    plt.axvline(100, color='r') # cutoff
     
-    
+    ###################################################
+    #Creating a Bessel lowpass filter
+    plt.figure()
+    b,a = signal.butter(4, 100, 'low', analog=True)
+    w,h = freqs(b,a)    
+    plt.plot(w, 20*np.log10(abs(h)), color='m', label= 'Butterworth')
+
+    b,a = signal.bessel(4, 100, 'low', analog=True)
+    w,h = freqs(b,a)    
+    plt.plot(w, 20*np.log10(abs(h)), color='g', label= 'Bessel')
+
+    plt.xscale('log')
+    plt.title('Butterworth x Bessel filters (Lowpass) frequency response')
+    plt.ylabel('Amplitude (dB)')
+    plt.xlabel('Frequency (rad/seconds)')
+    plt.grid()
+    plt.axvline(100, color='r') # cutoff
+    plt.legend()
+
     plt.show()
 
 if __name__ == '__main__':
