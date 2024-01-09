@@ -51,10 +51,7 @@ def run():
     plt.plot((w/np.pi)*nyq_rate, abs(h), linewidth=2, color='g')
     plt.xlim(12.0, 20.0)
     plt.ylim(0, 0.0025)
-    plt.grid()
-    
-    plt.figure(3)
-    
+    plt.grid()    
     
     plt.show()
 
